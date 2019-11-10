@@ -57,4 +57,37 @@ response = input("Enable Firewall? Y/N")
 if response == "Y":
         os.system("sudo ufw enable")
 
+####################### Password Policy
+response = input("Change Password Policy? Y/N")
+if response == "Y":
+	listLines = []
+	with open("/etc/login.defs", "rt") as readOnlyFile:
+		listLines =  list(readOnlyFile)
+	for lines in listLines:
+		print(lines)
 
+	with open("/etc/login.defs", "wt") as passwdFile:
+		for line in listLines:
+			if ("PASS_MAX_DAYS"  in line) and ("#" not in line):
+				passwdFile.write("PASS_MAX_DAYS   90\n")
+			elif ("PASS_MIN_DAYS" in line) and ("#" not in line):
+				passwdFile.write("PASS_MIN_DAYS   7\n")
+			elif ("PASS_WARN_AGE" in line) and ("#" not in line):
+				passwdFile.write("PASS_WARN_AGE   14\n")
+			else:
+				passwdFile.write(line)	
+	os.system("sudo apt-get install libpam-cracklib")
+	listLines = []
+	with open("/etc/pam.d/common-password", "r") as readOnlyFile:
+		listLines =  list(readOnlyFile)
+	for lines in listLines:
+		print(lines)
+
+	with open("/etc/pam.d/common-password", "w") as pamFile:
+		for line in listLines:
+			if ("pam_unix.so"  in line) and ("#" not in line):
+				pamFile.write("password        [success=1 default=ignore]      pam_unix.so obscure use_authtok try_first_pass sha51 minlen=8 remember=5\n")
+			elif ("pam_cracklib.so" in line) and ("#" not in line):
+				pamFile.write("password        [success=1 default=ignore]      pam_unix.so obscure use_authtok try_first_pass sha512 ucredit=1 lcredit=1 dcredit=1 ocredit=1\n")
+			else:
+				pamFile.write(line)

@@ -44,7 +44,7 @@ response = input("Secure Network? Y/N")
 if response == "Y":
         with open("/etc/sysctl.conf", "a") as networkConfig:
                 input("Enabling Syn Cookie Protection")
-networkConfig.write("\nnet.ipv4.tcp_syncookies = 1")
+                networkConfig.write("\nnet.ipv4.tcp_syncookies = 1")
                 input("Disable IPv6")
                 networkConfig.write("\nnet.ipv6.conf.all.disable_ipv6 = 1")
                 networkConfig.write("\nnet.ipv6.conf.default.disable_ipv6 = 1")

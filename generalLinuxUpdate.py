@@ -91,3 +91,8 @@ if response == "Y":
 				pamFile.write("password        [success=1 default=ignore]      pam_unix.so obscure use_authtok try_first_pass sha512 ucredit=1 lcredit=1 dcredit=1 ocredit=1\n")
 			else:
 				pamFile.write(line)
+
+####################### Install openssh-server
+response = input("Install openssh-server? Y/N")
+if response == "Y":
+	os.system("sudo apt-get install openssh-server")

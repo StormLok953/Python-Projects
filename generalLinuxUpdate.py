@@ -101,7 +101,7 @@ if response == "Y":
 	for userData in current_users:
 		print(userData.get("user"))
 		if userData is not current_working_user: 
-			proc = subprocess.Popen(["sudo", "passwd", userData]}, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+			proc = subprocess.Popen(["sudo", "passwd", userData]), stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 			proc.stdin.write("Cyberpatriot1!\n".encode("ascii"))
 			proc.stdin.write("Cyberpatriot1!\n".encode("ascii"))
 			proc.stdin.flush()

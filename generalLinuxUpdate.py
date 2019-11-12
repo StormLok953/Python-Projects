@@ -1,6 +1,6 @@
 import subprocess, os, time, sys, json, grp, pwd
 
-current_working_user = "cyberpatriot"
+current_working_user = input("Type currentUser: ")
 
 def get_file(filepath):
         with open(filepath, "r") as fileObject:

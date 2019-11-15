@@ -98,14 +98,14 @@ if response == "Y":
 	with open("/etc/pam.d/common-auth", "a") as commonAuth:
 		commonAuth.write("\nauth required pam_tally2.so deny=5 onerr=fail unlock_time=1800")
 
-	for userData in current_users:
-		print(userData.get("user"))
-		if userData is not current_working_user: 
-			proc = subprocess.Popen(["sudo", "passwd", userData], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-			proc.stdin.write("Cyberpatriot1!\n".encode("ascii"))
-			proc.stdin.write("Cyberpatriot1!\n".encode("ascii"))
-			proc.stdin.flush()
-			time.sleep(1)
+	#for userData in current_users:
+	#	print(userData.get("user"))
+	#	if userData is not current_working_user: 
+	#		proc = subprocess.Popen(["sudo", "passwd", userData], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+	#		proc.stdin.write("Cyberpatriot1!\n".encode("ascii"))
+	#		proc.stdin.write("Cyberpatriot1!\n".encode("ascii"))
+	#		proc.stdin.flush()
+	#		time.sleep(1)
 	
 		 
 ########################### Disable root login

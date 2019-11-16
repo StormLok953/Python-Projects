@@ -2,5 +2,6 @@
 
 Here are the list of things that this script should accomplish:
 
-hackingAndMediaFile.py
+hacking_and_media_file.py
   - find all hacking devices and delete them
+  - list all media files in /home directory

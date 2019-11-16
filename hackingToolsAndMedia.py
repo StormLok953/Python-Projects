@@ -1,18 +1,20 @@
 import subprocess, os, time, sys, json, grp, pwd
 
-################### Delete all Hacking Tools
-hackingTools = ["zenmap", "nmap", "telnet", "hydra", "john", "nitko", "freeciv", "ophcrack", "kismet", "minetest"]
-response = input("Remove Hacking Tools? Y/N")
-if response == "Y":
-        for hackingProgram in hackingTools:
-                print("Removing ", hackingProgram)
-                subprocess.call(["sudo", "apt-get", "purge", hackingProgram + "*", "-y"])
+############ Delete All Hacking Tools
+hacking_tools = ["zenmap", "nmap", "telnet", "hydra", "john", "nitko", "freeciv", "ophcrack", "kismet", "minetest", "netcat"]
 
-################## Find all media files and delete
-mediaFileTypes = ["mp3", "mov", "mp4", "png", "pdf", "gif", "jpeg", "tiff", "bmp", "avi"]
-response = input("Find all media files? Y/N")
-if response == "Y":
-        for fileTypes in mediaFileTypes:
-                subprocess.call(["find", "/", "-type", "f", "-iname", "*." + fileTypes])
+response = raw_input("Would you like to remove all the hacking tools? y or n")
+if response is 'y' or response is 'Y':
+	for hacking_tool in hacking_tools:
+		print("Removing ", hacking_tool)
+		subprocess.call(["sudo", "apt-get", "purge", hacking_tool + "*", "-y"])
 
-################# Secure Ports
+
+############ Final All Media Files and Delete
+media_file_extensions = ["mp3", "mov", "mp4", "png", "pdf", "gif", "jpeg", "tiff", "bmp", "avi"]
+#TODO find uppercase 
+response = raw_input("Would you like to detect all the media file types? y or n")
+if response is 'y' or response is 'Y':
+	for media_file_extension in media_file_extensions:
+		print("Finding ", media_file_extension)
+		subprocess.call(["find", "/home", "-type", "f", "-iname", "*." + media_file_extension])

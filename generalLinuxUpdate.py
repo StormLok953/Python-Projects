@@ -23,8 +23,6 @@ if "CyberPatriot" not in os.getcwd():
 if os.geteuid() != 0:
 	print("Please run the script as root.")
 	exit()
-	
-os.system("mkdir ~/backup")
 
 ############# Make sure preliminary problems are solved
 response = raw_input("Are the Forensic Questions solved?")
@@ -47,7 +45,7 @@ if response is 'y' or response is 'Y':
 print("Prerequisites: openssh-server must be installed")
 response = raw_input("Would you like to disable root login? y or n")
 if response is 'y' or response is 'Y':
-	os.system("sudo cp /etc/ssh/sshd_config ~/backup")
+	os.system("sudo cp /etc/ssh/sshd_config /home")
 	listLines = []
 	with open("/etc/ssh/sshd_config", "rt") as readOnlyFile:
 		listLines = list(readOnlyFile)
@@ -60,5 +58,3 @@ if response is 'y' or response is 'Y':
 				disableRootLoginFile.write("PermitRootLogin no")
 			else:
 				disableRootLoginFile.write(line)
-				
-			

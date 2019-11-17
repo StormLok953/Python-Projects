@@ -1,7 +1,7 @@
 import subprocess, os, time, sys, json, grp, pwd
 
 ############ Delete All Hacking Tools
-hacking_tools = ["zenmap", "nmap", "telnet", "hydra", "john", "nitko", "freeciv", "ophcrack", "kismet", "minetest", "netcat"]
+hacking_tools = ["zenmap", "nmap", "telnet", "hydra", "john", "nitko", "freeciv", "ophcrack", "kismet", "minetest", "netcat", "vsftpd"]
 
 response = raw_input("Would you like to remove all the hacking tools? y or n")
 if response is 'y' or response is 'Y':

@@ -24,6 +24,10 @@ if os.geteuid() != 0:
 	print("Please run the script as root.")
 	exit()
 
+############# Create backup file
+os.system("mkdir ~/backup")
+
+
 ############# Make sure preliminary problems are solved
 response = raw_input("Are the Forensic Questions solved?")
 print("Moving On")
@@ -45,7 +49,7 @@ if response is 'y' or response is 'Y':
 print("Prerequisites: openssh-server must be installed")
 response = raw_input("Would you like to disable root login? y or n")
 if response is 'y' or response is 'Y':
-	os.system("sudo cp /etc/ssh/sshd_config /home")
+	os.system("sudo cp /etc/ssh/sshd_config ~/backup")
 	listLines = []
 	with open("/etc/ssh/sshd_config", "rt") as readOnlyFile:
 		listLines = list(readOnlyFile)
@@ -55,6 +59,24 @@ if response is 'y' or response is 'Y':
 	with open("/etc/ssh/sshd_config", "wt") as disableRootLoginFile:
 		for line in listLines:
 			if ("PermitRootLogin" in line) and ("#" not in line):
-				disableRootLoginFile.write("PermitRootLogin no")
+				disableRootLoginFile.write("PermitRootLogin no\n")
 			else:
 				disableRootLoginFile.write(line)
+
+############# Enforce Password Policy 
+response = raw_input("Would you like to enforce password complexity and length? y or n")
+if response is 'y' or response is 'Y':
+	os.system("sudo apt-get install libpam-cracklib")
+	os.system("sudo cp /etc/pam.d/common-password ~/backup")
+	listLines = []
+	with open("/etc/pam.d/common-password", "rt") as readOnlyFile:
+		listLines = list(readOnlyFile)
+	for line in listLines:
+		print(line)
+
+	with open("/etc/pam.d/common-password", "wt") as passwordComplexityAndLength:
+		for line in listLines:
+			if ("pam_unix.so" in line) and ("#" not in line):
+				passwordComplexityAndLength.write("password	[success=1 default=ignore]	pam_unix.so obsure sha512 minlen=8 remember=5") 
+		else:
+			passwordComplexityAndLength.write(line)

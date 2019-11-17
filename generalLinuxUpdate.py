@@ -23,6 +23,8 @@ if "CyberPatriot" not in os.getcwd():
 if os.geteuid() != 0:
 	print("Please run the script as root.")
 	exit()
+	
+os.system("mkdir ~/backup")
 
 ############# Make sure preliminary problems are solved
 response = raw_input("Are the Forensic Questions solved?")

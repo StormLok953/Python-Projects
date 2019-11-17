@@ -11,3 +11,4 @@ hacking_and_media_file.py
   - enable UFW firewall
   - install openssh-server
   - disable root login
+  - enforce password complexity and length

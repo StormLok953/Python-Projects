@@ -47,7 +47,7 @@ if response is 'y' or response is 'Y':
 print("Prerequisites: openssh-server must be installed")
 response = raw_input("Would you like to disable root login? y or n")
 if response is 'y' or response is 'Y':
-	os.system("sudo cp /etc/ssh/sshd_config /home")
+	os.system("sudo cp /etc/ssh/sshd_config ~/backup")
 	listLines = []
 	with open("/etc/ssh/sshd_config", "rt") as readOnlyFile:
 		listLines = list(readOnlyFile)

@@ -82,4 +82,5 @@ if response is 'y' or response is 'Y':
 				passwordComplexityAndLength.write("password	requisite		pam_cracklib.so retry=3 minlen=8 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1\n")
 			else:
 				passwordComplexityAndLength.write(line)
-		
+	
+response = raw_input("Would you like to implement lockout policy? y or n"):

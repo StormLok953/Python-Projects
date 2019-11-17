@@ -77,6 +77,9 @@ if response is 'y' or response is 'Y':
 	with open("/etc/pam.d/common-password", "wt") as passwordComplexityAndLength:
 		for line in listLines:
 			if ("pam_unix.so" in line) and ("#" not in line):
-				passwordComplexityAndLength.write("password	[success=1 default=ignore]	pam_unix.so obsure sha512 minlen=8 remember=5") 
-		else:
-			passwordComplexityAndLength.write(line)
+				passwordComplexityAndLength.write("password	[success=1 default=ignore]	pam_unix.so obsure sha512 minlen=8 remember=5\n") 
+			elif ("pam_cracklib.so" in line) and ("#" not in line):
+				passwordComplexityAndLength.write("password	requisite		pam_cracklib.so retry=3 minlen=8 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1\n")
+			else:
+				passwordComplexityAndLength.write(line)
+		

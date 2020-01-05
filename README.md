@@ -12,3 +12,5 @@ hacking_and_media_file.py
   - install openssh-server
   - disable root login
   - enforce password complexity and length
+  - force SSH to use public key authentication
+  

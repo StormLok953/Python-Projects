@@ -83,4 +83,24 @@ if response is 'y' or response is 'Y':
 			else:
 				passwordComplexityAndLength.write(line)
 	
-response = raw_input("Would you like to implement lockout policy? y or n"):
+
+############ Force SSH to use Public Key Authentication
+print("Prerequisites: openssh-server must be installed")
+response = raw_input("Force SSH to require public key authentication? ")
+if response is 'y' or response is 'Y':
+	os.system("sudo cp /etc/ssh/sshd_config ~/backup")
+	listLines = []
+	with open("/etc/ssh/sshd_config", "rt") as readOnlyFile:
+		listLines = list(readOnlyFile)
+	for line in listLines:
+		print(line)
+
+	with open("/etc/ssh/sshd_config", "wt") as publicKeyAuthentication:
+		for line in listLines:
+			if ("PasswordAuthentication yes" in line):
+				publicKeyAuthentication.write("PasswordAuthentication no\n")
+			elif ("PubkeyAuthentication no" in line):
+				publicKeyAuthentication.write("PubkeyAuthentication yes\n")
+			else:
+				publicKeyAuthentication.write(line)	
+	

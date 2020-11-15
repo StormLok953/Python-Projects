@@ -40,6 +40,16 @@ def enableUFWFirewall():
 	if response is 'y' or response is 'Y':
 		os.system("sudo ufw enable")
 
+############# Update OS and Kernel
+def updateOSAndKernel():
+	response = input("Would you like to update OS? y or n")
+	if response is 'y' or response is 'Y':
+		os.system("sudo apt-get update")
+		os.system("sudo apt-get upgrade")
+
+	response = input("Would you like to update Kernel? y or n")
+	if response is 'y' or response is 'Y':
+		os.system("sudo apt-get dist-upgrade")
 
 ############# Install openssh-server
 def installOpenSSHServer():
@@ -87,6 +97,22 @@ def enforcePasswordPolicy():
 				else:
 					passwordComplexityAndLength.write(line)
 	
+	response = input("Would you like to enforce password history? y or n")
+	if response is 'y' or response is 'Y':
+		listlines = []
+		with open("/etc/login.defs", "rt") as readOnlyFile:
+			listLines = list(readOnlyFile)
+
+		with open("/etc/login.defs", "wt") as passwordHistory:
+			for line in listlines:
+				if ("PASS_MAX_DAYS" in line) and ("#" not in line):
+					passwordHistory.write("PASS_MAX_DAYS	90")
+				elif ("PASS_MIN_DAYS" in line) and ("#" not in line):
+					passwordHistory.write("PASS_MIN_DAYS	10")
+				elif ("PASS_WARN_AGE" in line) and ("#" not in line):
+					passwordHistory.write("PASS_WARN_AGE	7")
+				else:
+					passwordHistory.write(line)	
 
 ############# Force SSH to use Public Key Authentication
 def forceSSHToUsePublicKeyAuthentication():
@@ -111,6 +137,7 @@ def forceSSHToUsePublicKeyAuthentication():
 	
 initiation()
 enableUFWFirewall()
+updateOSAndKernel()
 installOpenSSHServer()
 disableRootLogin()
 enforcePasswordPolicy()

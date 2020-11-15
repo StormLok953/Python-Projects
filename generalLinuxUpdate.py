@@ -108,11 +108,11 @@ def enforcePasswordPolicy():
 		with open("/etc/login.defs", "wt") as passwordHistory:
 			for line in listLines:
 				if ("PASS_MAX_DAYS" in line) and ("#" not in line):
-					passwordHistory.write("PASS_MAX_DAYS	90")
+					passwordHistory.write("PASS_MAX_DAYS	90\n")
 				elif ("PASS_MIN_DAYS" in line) and ("#" not in line):
-					passwordHistory.write("PASS_MIN_DAYS	10")
+					passwordHistory.write("PASS_MIN_DAYS	10\n")
 				elif ("PASS_WARN_AGE" in line) and ("#" not in line):
-					passwordHistory.write("PASS_WARN_AGE	7")
+					passwordHistory.write("PASS_WARN_AGE	7\n")
 				else:
 					passwordHistory.write(line)	
 

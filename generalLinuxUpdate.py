@@ -99,12 +99,14 @@ def enforcePasswordPolicy():
 	
 	response = input("Would you like to enforce password history? y or n")
 	if response is 'y' or response is 'Y':
-		listlines = []
+		listLines = []
 		with open("/etc/login.defs", "rt") as readOnlyFile:
 			listLines = list(readOnlyFile)
+		for line in listLines:
+			print(line)
 
 		with open("/etc/login.defs", "wt") as passwordHistory:
-			for line in listlines:
+			for line in listLines:
 				if ("PASS_MAX_DAYS" in line) and ("#" not in line):
 					passwordHistory.write("PASS_MAX_DAYS	90")
 				elif ("PASS_MIN_DAYS" in line) and ("#" not in line):

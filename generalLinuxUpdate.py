@@ -36,24 +36,24 @@ def initiation():
 
 ############# Enable the Firewall
 def enableUFWFirewall():
-	response = input("Would you like to enable UFW Firewall? y or n")
+	response = input("Would you like to enable UFW Firewall? [y/n]")
 	if response is 'y' or response is 'Y':
 		os.system("sudo ufw enable")
 
 ############# Update OS and Kernel
 def updateOSAndKernel():
-	response = input("Would you like to update OS? y or n")
+	response = input("Would you like to update OS? [y/n]")
 	if response is 'y' or response is 'Y':
 		os.system("sudo apt-get update")
 		os.system("sudo apt-get upgrade")
 
-	response = input("Would you like to update Kernel? y or n")
+	response = input("Would you like to update Kernel? [y/n]")
 	if response is 'y' or response is 'Y':
 		os.system("sudo apt-get dist-upgrade")
 
 ############# Install openssh-server
 def installOpenSSHServer():
-	response = input("Would you like to download openssh-server? y or n")
+	response = input("Would you like to download openssh-server? [y/n]")
 	if response is 'y' or response is 'Y':
 		os.system("sudo apt install openssh-server")
 
@@ -61,7 +61,7 @@ def installOpenSSHServer():
 ############# Disable Root Login
 def disableRootLogin():
 	print("Prerequisites: openssh-server must be installed")
-	response = input("Would you like to disable root login? y or n")
+	response = input("Would you like to disable root login? [y/n]")
 	if response is 'y' or response is 'Y':
 		os.system("sudo cp /etc/ssh/sshd_config ~/backup")
 		listLines = []
@@ -78,7 +78,7 @@ def disableRootLogin():
 
 ############## Enforce Password Policy 
 def enforcePasswordPolicy():
-	response = input("Would you like to enforce password complexity and length? y or n")
+	response = input("Would you like to enforce password complexity and length? [y/n]")
 	if response is 'y' or response is 'Y':
 		os.system("sudo apt-get install libpam-cracklib")
 		os.system("sudo cp /etc/pam.d/common-password ~/backup")
@@ -97,7 +97,7 @@ def enforcePasswordPolicy():
 				else:
 					passwordComplexityAndLength.write(line)
 	
-	response = input("Would you like to enforce password history? y or n")
+	response = input("Would you like to enforce password history? [y/n]")
 	if response is 'y' or response is 'Y':
 		listLines = []
 		with open("/etc/login.defs", "rt") as readOnlyFile:
@@ -136,6 +136,13 @@ def forceSSHToUsePublicKeyAuthentication():
 					publicKeyAuthentication.write("PubkeyAuthentication yes\n")
 				else:
 					publicKeyAuthentication.write(line)	
+
+############### Disable FTP Service
+def disableFTPService():
+	print("Prerequisites: Update and Upgrade System")
+	response = input("Disable FTP Service? [y/n]")
+	if response is 'y' or response is 'Y':
+		os.system("sudo apt-get remove pure-ftpd")
 	
 initiation()
 enableUFWFirewall()
@@ -144,3 +151,4 @@ installOpenSSHServer()
 disableRootLogin()
 enforcePasswordPolicy()
 forceSSHToUsePublicKeyAuthentication()
+disableFTPService()

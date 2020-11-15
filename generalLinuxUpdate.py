@@ -119,7 +119,7 @@ def enforcePasswordPolicy():
 ############# Force SSH to use Public Key Authentication
 def forceSSHToUsePublicKeyAuthentication():
 	print("Prerequisites: openssh-server must be installed")
-	response = input("Force SSH to require public key authentication? ")
+	response = input("Force SSH to require public key authentication? [y/n]")
 	if response is 'y' or response is 'Y':
 		os.system("sudo cp /etc/ssh/sshd_config ~/backup")
 		listLines = []
@@ -144,6 +144,19 @@ def disableFTPService():
 	if response is 'y' or response is 'Y':
 		os.system("sudo apt-get remove pure-ftpd")
 	
+############### Disable Guest Account
+def disableGuestAccount():
+	response = input("Disable Guest Account? [y/n]")
+	if response is 'y' or response is 'Y':
+		os.system("sudo cp /etc/lightdm/lightdm.conf ~/backup")
+		listLines = []
+		with open("/etc/lightdm/lightdm.conf", "wt") as guestAccountDisable:
+			guestAccountDisable.write("[SeatDefaults]\n")
+			guestAccountDisable.write("user-session=ubuntu\n")
+			guestAccountDisable.write("greeter-session=unity-greeter\n")
+			guestAccountDisable.write("allow-guest=false\n")
+
+
 initiation()
 enableUFWFirewall()
 updateOSAndKernel()
@@ -152,3 +165,4 @@ disableRootLogin()
 enforcePasswordPolicy()
 forceSSHToUsePublicKeyAuthentication()
 disableFTPService()
+disableGuestAccount()

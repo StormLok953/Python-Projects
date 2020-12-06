@@ -161,10 +161,11 @@ def removeApache():
 	response = input("Disable Apache2? [y/n]")
 	if response is 'y' or response is 'Y':
 		os.system("sudo service apache2 stop")
+		os.system("sudo apt purge apache2")
 		os.system("sudo apt-get purge apache2-utils apache2.2-bin apache2-common")
 		os.system("sudo apt-get autoremove")
 	print("Test Apache-2 with \"sudo service apache-2 start\"")
-	print("Should say \"unrecognized service\")
+	print("Should say \"unrecognized service\"")
 		
 initiation()
 enableUFWFirewall()

@@ -75,6 +75,8 @@ def disableRootLogin():
 					disableRootLoginFile.write("PermitRootLogin no\n")
 				if ("PermitEmptyPasswords" in line) and ("#" not in line):
 					disableRootLoginFile.write("PermitEmptyPasswords no")
+				if ("Protocol 1,2" in line) and ("#" not in line):
+					disableRootLoginFile.write("Protocol 2")
 				else:
 					disableRootLoginFile.write(line)
 
